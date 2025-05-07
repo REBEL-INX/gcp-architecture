@@ -20,6 +20,7 @@ resource "google_compute_address" "hq-nat" {
   name         = "hq-nat"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
+  region = "us-central1"
 }
 
 resource "google_compute_router_nat" "lima-nat" {
