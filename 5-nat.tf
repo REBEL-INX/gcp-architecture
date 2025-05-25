@@ -16,13 +16,13 @@ resource "google_compute_router_nat" "hq-nat" {
 
   nat_ips = [google_compute_address.hq-nat.self_link]
 }
- 
+
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address
 resource "google_compute_address" "hq-nat" {
   name         = "hq-nat"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
-  region = "us-central1"
+  region       = "us-central1"
 }
 
 # For Iowa-App1
@@ -47,7 +47,7 @@ resource "google_compute_address" "hq-nat-app1" {
   name         = "hq-nat-app1"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
-  region = "us-central1"
+  region       = "us-central1"
 }
 
 # For Lima
@@ -72,7 +72,7 @@ resource "google_compute_address" "lima-nat" {
   name         = "lima-nat"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
-  region = "southamerica-west1"
+  region       = "southamerica-west1"
 }
 
 # For Lima-app1
@@ -97,5 +97,5 @@ resource "google_compute_address" "lima-nat-app1" {
   name         = "lima-nat-app1"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
-  region = "southamerica-west1"
+  region       = "southamerica-west1"
 }

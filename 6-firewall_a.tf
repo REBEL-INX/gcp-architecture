@@ -1,11 +1,26 @@
-resource "google_compute_firewall" "allow_web" {
-  name = "allow-web-traffic"
+# For main VPC
+resource "google_compute_firewall" "ssh" {
+  name    = "allow-ssh"
   network = google_compute_network.main.name
+  # direction = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+#  Allow Wed trafic Firewall rule
+resource "google_compute_firewall" "allow_web" {
+  name        = "allow-web-traffic"
+  network     = google_compute_network.main.name
   description = "HTTP traffic for NGNX re"
 
   allow {
     protocol = "tcp"
-    ports = ["80", "443"]
+    ports    = ["80", "443"]
   }
 
   source_ranges = ["0.0.0.0/0"]
@@ -13,18 +28,18 @@ resource "google_compute_firewall" "allow_web" {
 
 # #allow_dns
 resource "google_compute_firewall" "allow_dns" {
-  name = "allow-dns"
-  network = google_compute_network.main.name
+  name        = "allow-dns"
+  network     = google_compute_network.main.name
   description = "HTTP traffic for NGNX re"
 
   allow {
     protocol = "tcp"
-    ports = ["53"]
+    ports    = ["53"]
   }
 
   allow {
     protocol = "udp"
-    ports = ["53"]
+    ports    = ["53"]
   }
 
   source_ranges = ["0.0.0.0/0"]
@@ -32,8 +47,8 @@ resource "google_compute_firewall" "allow_dns" {
 
 
 resource "google_compute_firewall" "icmp" {
-  name = "icmp"
-  network = google_compute_network.main.name
+  name        = "icmp"
+  network     = google_compute_network.main.name
   description = "Allow ICMP"
 
   allow {
@@ -46,13 +61,13 @@ resource "google_compute_firewall" "icmp" {
 # # Allow Databases
 
 resource "google_compute_firewall" "allow-db" {
-  name = "allow-db"
-  network = google_compute_network.main.name
+  name        = "allow-db"
+  network     = google_compute_network.main.name
   description = "Allow Databases"
 
   allow {
     protocol = "tcp"
-    ports = ["3306","1521"]
+    ports    = ["3306", "1521"]
   }
 
   source_ranges = ["0.0.0.0/0"]
@@ -61,13 +76,13 @@ resource "google_compute_firewall" "allow-db" {
 # # Allow RDP
 
 resource "google_compute_firewall" "allow-rdp" {
-  name = "allow-rdp"
-  network = google_compute_network.main.name
+  name        = "allow-rdp"
+  network     = google_compute_network.main.name
   description = "Allow RDP"
 
   allow {
     protocol = "tcp"
-    ports = ["3389"]
+    ports    = ["3389"]
   }
 
   source_ranges = ["0.0.0.0/0"]
